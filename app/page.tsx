@@ -1,8 +1,11 @@
 import Link from "next/link";
-import { deleteTicket, getTickets } from "@/lib/actions";
+
+import { deleteTicket } from "@/lib/actions";
+import { readFile } from "@/lib/helpers";
 
 async function Home() {
-  const result = await getTickets();
+  const request = await readFile();
+  const result = Object.values(request) as Ticket[];
 
   return (
     <main className="flex min-h-screen flex-col items-center gap-10 p-24 max-w-5xl mx-auto">

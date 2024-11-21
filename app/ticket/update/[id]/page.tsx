@@ -1,11 +1,13 @@
 import { redirect } from "next/navigation";
-import { getTicket, updateTicket } from "@/lib/actions";
+import { updateTicket } from "@/lib/actions";
+import { readFile } from "@/lib/helpers";
 
 async function Page({ params }: { params: Promise<{ id: string }> }) {
   const id = (await params).id;
   if (!id) redirect("/");
 
-  const ticket = await getTicket(+id);
+  const allTickets = readFile();
+  const ticket = allTickets[id];
   if (!ticket) redirect("/");
 
   async function handleSubmit(formData: FormData) {
